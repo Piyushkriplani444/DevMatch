@@ -47,31 +47,13 @@ authRouter.post("/login", async(req, res)=>{
   }
 })
 
-
-authRouter.patch("/user/:userId", async( req,res)=>{
-    const userId = req.params?.userId;
-    const updateBody = req.body;
-
-    try{
-
-      const allowedFields = ["photoUrl","about","gender", "age", "skills"]
-      const validateBody = Object.keys(updateBody).every((k)=> allowedFields.includes(k))
-
-      if(!validateBody){
-        throw new Error("Validation Failed")
-      }
-
-      const user = await UserModel.findByIdAndUpdate(userId, updateBody, {
-        runValidators: true,
-      })
-      res.send("updated Succesfully")
-
-    }catch(err){
-      res.status(400).send("Error"+ err)
-    }
-
-})
-
+authRouter.post("/logout", async (req, res) => {
+  res
+    .cookie("token", null, {
+      expires: new Date(Date.now()),
+    })
+    .send("User Logged out successfully");
+});
 
 
 module.exports = authRouter;
