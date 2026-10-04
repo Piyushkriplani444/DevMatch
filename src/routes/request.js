@@ -25,7 +25,7 @@ requestRouter.post(
         });
       }
 
-      const allowedStatuses = ["ignored", "intrested"];
+      const allowedStatuses = ["ignored", "interested"];
       if (!allowedStatuses.includes(status)) {
         throw new Error("Invalid status type:" + status);
       }
@@ -85,7 +85,7 @@ requestRouter.post(
       const connectionRequest = await ConnectionRequestModel.findOne({
         _id: requestId,
         toUserId: loggedInUser._id,
-        status: "intrested",
+        status: "interested",
       });
 
       if (!connectionRequest) {
@@ -108,18 +108,6 @@ requestRouter.post(
     }
   }
 );
-
-requestRouter.get("/feed", async(req,res)=>{
-
-  try {
-
-    const users = await UserModel.find();
-    res.send(users);
-  }
-  catch{
-    res.statusCode(500).send("Something went wrong");
-  }
-})
 
 
 module.exports = requestRouter;
