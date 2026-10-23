@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
-                throw new Error("Enter a Strong Password")
+                throw new Error("Enter a Strong Email")
             }
         }
     },
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         validate(value){
             if(!validator.isStrongPassword(value)){
-                throw new Error("Invalid Photo URL")
+                throw new Error("Enter a Strong Password")
             }
         }
     },
