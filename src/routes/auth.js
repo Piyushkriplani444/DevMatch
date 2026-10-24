@@ -14,7 +14,9 @@ authRouter.post("/signup", async (req,res)=>{
   try{
     const user = new UserModel({firstName, lastName, emailId, password: passwordHash});
     const qq = await user.save();
-   res.send({ "user": qq});
+    const token = await qq.getJWT();
+    res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000) })
+   res.json({"message":"User addded Successfully",  "data": qq});
   }catch(err){
     res.status(500).send(err);
   }
